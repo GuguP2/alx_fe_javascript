@@ -7,5 +7,5 @@ function showRandomQuote() {
   const selector = Math.floor(Math.random() * quoteGen.length);
   const selectedQuote = quoteGen[selector];
   const createAddQuoteForm = document.getElementById('quoteDisplay');
-  displayQuote.innerHTML = `<p>${quoteGen.text}</p><small>${quoteGen.category}</small>`;
+  createAddQuoteForm.innerHTML = `<p>${quoteGen.text}</p><small>${quoteGen.category}</small>`;
 }
