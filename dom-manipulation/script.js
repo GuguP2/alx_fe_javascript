@@ -3,7 +3,7 @@ const quoteGen = [{text: 'you are brave', category:'self love'},
   {text: 'you are beautiful', category:'self love'}
 ];
 
-function randomQuote(){
+function ShowRandomQuote(){
   const selector = Math.floor(Math.random() * quoteGen.length);
   const selectedQuote = quoteGen[selector];
   const displayQuote = document.getElementById('quoteDisplay');
