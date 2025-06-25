@@ -6,6 +6,6 @@ const quoteGen = [{text: 'you are brave', category:'self love'},
 function showRandomQuote() {
   const selector = Math.floor(Math.random() * quoteGen.length);
   const selectedQuote = quoteGen[selector];
-  const displayQuote = document.getElementById('quoteDisplay');
+  const createAddQuoteForm = document.getElementById('quoteDisplay');
   displayQuote.innerHTML = `<p>${quoteGen.text}</p><small>${quoteGen.category}</small>`;
 }
