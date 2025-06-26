@@ -8,8 +8,14 @@ function showRandomQuote() {
   const selectedQuote = quoteGen[selector];
   const createAddQuoteForm = document.getElementById('quoteDisplay');
   createAddQuoteForm.innerHTML = `<p>${quoteGen.text}</p><small>${quoteGen.category}</small>`;
-  
+
   function createAddQuoteForm() {
+  const formContainer = document.getElementById("formContainer");
+
+  const form = document.createElement("form");
+  form.id = "addQuoteForm";
+}
+function createAddQuoteForm() {
   const formContainer = document.getElementById("formContainer");
 
   const form = document.createElement("form");
