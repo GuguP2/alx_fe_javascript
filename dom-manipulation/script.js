@@ -109,3 +109,14 @@ window.onload = function () {
     filterQuotes(); // show next filtered random quote
   });
 };
+// script.js
+
+import { loadQuotes } from './quotes.js';
+import { showRandomQuote, setupFormHandlers, updateCategoryFilter } from './ui.js';
+
+window.onload = () => {
+  loadQuotes();
+  showRandomQuote();
+  setupFormHandlers();
+  updateCategoryFilter();
+};
