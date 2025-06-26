@@ -21,6 +21,10 @@ function showRandomQuote() {
   `;
 
   formContainer.appendChild(form);
+  const refreshBtn = document.getElementById("newQuote");
+  if (refreshBtn) {
+    refreshBtn.addEventListener("click", showRandomQuote);
+  }
 }
 
 // Function to add a new quote from form input
@@ -38,9 +42,4 @@ function addQuote() {
     textInput.value = '';
     categoryInput.value = '';
 
-    // Optionally display the new quote
-    showRandomQuote();
-  } else {
-    alert("Please enter both quote and category.");
-  }
 }
