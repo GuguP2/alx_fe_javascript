@@ -6,28 +6,33 @@ const quoteGen = [{text: 'you are brave', category:'self love'},
 function showRandomQuote() {
   const selector = Math.floor(Math.random() * quoteGen.length);
   const selectedQuote = quoteGen[selector];
-  const createAddQuoteForm = document.getElementById('quoteDisplay');
-  createAddQuoteForm.innerHTML = `<p>${quoteGen.text}</p><small>${quoteGen.category}</small>`;
+  const quoteDisplay = document.getElementById('quoteDisplay');
+
+  quoteDisplay.innerHTML = `
+    <p>"${selectedQuote.text}"</p>
+    <small>Category: ${selectedQuote.category}</small>
+  `;
 }
 
- function createAddQuoteForm() {
+// Create the "Add Quote" form dynamically
+function createAddQuoteForm() {
   const formContainer = document.getElementById("formContainer");
 
   const form = document.createElement("div");
   form.innerHTML = `
     <input id="newQuoteText" type="text" placeholder="Enter a new quote" />
     <input id="newQuoteCategory" type="text" placeholder="Enter quote category" />
-    <button onclick="addQuote()">Add Quote</button>
+    <button id="addQuoteBtn">Add Quote</button>
   `;
 
   formContainer.appendChild(form);
-  const refreshBtn = document.getElementById("newQuote");
-  if (refreshBtn) {
-    refreshBtn.addEventListener("click", showRandomQuote);
-  }
+
+  // Attach event listener to Add button
+  const addBtn = document.getElementById("addQuoteBtn");
+  addBtn.addEventListener("click", addQuote);
 }
 
-// Function to add a new quote from form input
+// Add a new quote
 function addQuote() {
   const textInput = document.getElementById("newQuoteText");
   const categoryInput = document.getElementById("newQuoteCategory");
@@ -38,8 +43,24 @@ function addQuote() {
   if (text && category) {
     quoteGen.push({ text, category });
 
-    // Clear the input fields
+    // Clear inputs
     textInput.value = '';
     categoryInput.value = '';
 
+    // Optionally show the new quote
+    showRandomQuote();
+  } else {
+    alert("Please fill in both fields.");
+  }
 }
+
+// Initialize app
+window.onload = function () {
+  showRandomQuote();
+  createAddQuoteForm();
+
+  const refreshBtn = document.getElementById("newQuote");
+  if (refreshBtn) {
+    refreshBtn.addEventListener("click", showRandomQuote);
+  }
+};
