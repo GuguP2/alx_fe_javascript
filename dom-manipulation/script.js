@@ -8,16 +8,39 @@ function showRandomQuote() {
   const selectedQuote = quoteGen[selector];
   const createAddQuoteForm = document.getElementById('quoteDisplay');
   createAddQuoteForm.innerHTML = `<p>${quoteGen.text}</p><small>${quoteGen.category}</small>`;
-
-  function createAddQuoteForm() {
-  const formContainer = document.getElementById("formContainer");
-
-  const form = document.createElement("form");
-  form.id = "addQuoteForm";
 }
-function createAddQuoteForm() {
+
+ function createAddQuoteForm() {
   const formContainer = document.getElementById("formContainer");
 
-  const form = document.createElement("form");
-  form.id = "addQuoteForm";
+  const form = document.createElement("div");
+  form.innerHTML = `
+    <input id="newQuoteText" type="text" placeholder="Enter a new quote" />
+    <input id="newQuoteCategory" type="text" placeholder="Enter quote category" />
+    <button onclick="addQuote()">Add Quote</button>
+  `;
+
+  formContainer.appendChild(form);
+}
+
+// Function to add a new quote from form input
+function addQuote() {
+  const textInput = document.getElementById("newQuoteText");
+  const categoryInput = document.getElementById("newQuoteCategory");
+
+  const text = textInput.value.trim();
+  const category = categoryInput.value.trim();
+
+  if (text && category) {
+    quoteGen.push({ text, category });
+
+    // Clear the input fields
+    textInput.value = '';
+    categoryInput.value = '';
+
+    // Optionally display the new quote
+    showRandomQuote();
+  } else {
+    alert("Please enter both quote and category.");
+  }
 }
