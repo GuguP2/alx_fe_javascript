@@ -267,3 +267,28 @@ window.onload = () => {
   document.getElementById("addQuoteBtn").addEventListener("click", addQuote);
   document.getElementById("categoryFilter").addEventListener("change", filterQuotes);
 };
+async function fetchQuotesFromServer(url) {
+  try {
+    const response = await fetch(url);
+    if (!response.ok) throw new Error("Failed to fetch quotes.");
+
+    const newQuotes = await response.json();
+
+    // Basic validation
+    if (!Array.isArray(newQuotes)) throw new Error("Invalid quote format.");
+
+    newQuotes.forEach(q => {
+      if (q.text && q.category) {
+        quoteGen.push(q);
+      }
+    });
+
+    saveQuotes();          // Persist in localStorage
+    populateCategories();  // Refresh dropdown
+    filterQuotes();        // Re-apply current filter
+
+    alert("Quotes imported from server.");
+  } catch (err) {
+    alert("Error fetching quotes: " + err.message);
+  }
+}
