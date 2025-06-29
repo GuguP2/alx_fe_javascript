@@ -317,3 +317,11 @@ async function fetchQuotesFromServer() {
   }
 }
 document.getElementById("fetchBtn").addEventListener("click", fetchQuotesFromServer);
+fetch(url, {
+  method: "POST",                  // ← method
+  headers: {
+    "Content-Type": "application/json"  // ← content type
+  },
+  body: JSON.stringify(data)       // ← actual data sent
+})
+
