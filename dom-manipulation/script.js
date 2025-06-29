@@ -324,4 +324,34 @@ fetch(url, {
   },
   body: JSON.stringify(data)       // ← actual data sent
 })
+quoteGen.push({ text, category, synced: false });
+async function syncQuotes() {
+  const unsynced = quoteGen.filter(q => !q.synced);
+
+  for (const quote of unsynced) {
+    try {
+      const res = await fetch("https://jsonplaceholder.typicode.com/posts", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify(quote)
+      });
+
+      if (res.ok) {
+        quote.synced = true; // mark as synced
+        console.log("Synced:", quote.text);
+      } else {
+        console.warn("Failed to sync quote:", quote.text);
+      }
+
+    } catch (error) {
+      console.error("Sync error:", error);
+    }
+  }
+
+  saveQuotes(); // update localStorage after syncing
+  alert("Sync completed.");
+}
+document.getElementById("syncBtn").addEventListener("click", syncQuotes);
 
