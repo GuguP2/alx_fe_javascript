@@ -120,4 +120,19 @@ window.onload = () => {
   setupFormHandlers();
   updateCategoryFilter();
 };
-exportToJsonFile(quotes); // Saves as quotes.json
+function exportToJsonFile(data, filename = "quotes.json") {
+  const jsonData = JSON.stringify(data, null, 2);
+  const blob = new Blob([jsonData], { type: "application/json" });
+  const url = URL.createObjectURL(blob);
+
+  const anchor = document.createElement("a");
+  anchor.href = url;
+  anchor.download = filename;
+  document.body.appendChild(anchor);
+  anchor.click();
+  document.body.removeChild(anchor);
+  URL.revokeObjectURL(url);
+}
+document.getElementById("exportBtn").addEventListener("click", () => {
+  exportToJsonFile(quoteGen); // Use your actual quotes array
+});
