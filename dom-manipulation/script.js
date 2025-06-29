@@ -120,3 +120,4 @@ window.onload = () => {
   setupFormHandlers();
   updateCategoryFilter();
 };
+exportToJsonFile(quotes); // Saves as quotes.json
