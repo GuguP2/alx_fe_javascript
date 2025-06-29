@@ -352,8 +352,10 @@ async function syncQuotes() {
 
   saveQuotes(); // update localStorage after syncing
   alert("Sync completed.");
-}
+
 document.getElementById("syncBtn").addEventListener("click", syncQuotes);
 setInterval(callbackFunction, intervalInMilliseconds);
 setInterval(syncQuotes, 60000); // 60,000 ms = 60 sec
+alert("Quotes synced with server!");
 
+}
