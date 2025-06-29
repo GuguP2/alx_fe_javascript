@@ -136,3 +136,40 @@ function exportToJsonFile(data, filename = "quotes.json") {
 document.getElementById("exportBtn").addEventListener("click", () => {
   exportToJsonFile(quoteGen); // Use your actual quotes array
 });
+document.getElementById("importInput").addEventListener("change", handleImport);
+
+function handleImport(event) {
+  const file = event.target.files[0];
+  if (!file) return;
+
+  const reader = new FileReader();
+
+  reader.onload = function (e) {
+    try {
+      const importedQuotes = JSON.parse(e.target.result);
+
+      // Validate structure
+      if (!Array.isArray(importedQuotes)) {
+        throw new Error("Invalid format: must be an array.");
+      }
+
+      // Optionally: validate each quote object
+      importedQuotes.forEach(q => {
+        if (!q.text || !q.category) {
+          throw new Error("Each quote must have 'text' and 'category'.");
+        }
+      });
+
+      // Merge and save
+      quoteGen.push(...importedQuotes);
+      localStorage.setItem("quotes", JSON.stringify(quoteGen));
+      alert("Quotes imported successfully!");
+      showRandomQuote(); // Refresh view
+
+    } catch (err) {
+      alert("Error importing quotes: " + err.message);
+    }
+  };
+
+  reader.readAsText(file);
+}
