@@ -292,3 +292,28 @@ async function fetchQuotesFromServer(url) {
     alert("Error fetching quotes: " + err.message);
   }
 }
+async function fetchQuotesFromServer() {
+  try {
+    const response = await fetch("https://jsonplaceholder.typicode.com/posts");
+    if (!response.ok) throw new Error("Network error");
+
+    const posts = await response.json();
+
+    // Use only first 10 to avoid clutter
+    const newQuotes = posts.slice(0, 10).map(post => ({
+      text: post.title,
+      category: "external"
+    }));
+
+    // Add to current quote list
+    quoteGen.push(...newQuotes);
+    saveQuotes();
+    populateCategories();
+    filterQuotes();
+
+    alert("Fetched quotes from server!");
+  } catch (err) {
+    alert("Failed to fetch quotes: " + err.message);
+  }
+}
+document.getElementById("fetchBtn").addEventListener("click", fetchQuotesFromServer);
